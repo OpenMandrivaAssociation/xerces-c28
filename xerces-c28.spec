@@ -3,18 +3,18 @@
 %define major 28
 
 %define libname %mklibname xerces-c %major
-%define libdev %mklibname -d xerces-c
+%define libdev %mklibname xerces-c %major -d 
 
 %define enable_debug 0
 %{?_enable_debug: %{expand: %%global enable_debug 1}}
 
-Name: xerces-c
+Name: xerces-c%major
 Version: 2.8.0
-Release: %mkrel 3
+Release: %mkrel 4
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
-Source0: %{name}-src_%{tarversion}.tar.gz
+Source0: xerces-c-src_%{tarversion}.tar.gz
 Patch0: xerces-c-lib64.patch
 # Most of apps 
 Patch1: xerces-c-pvtheader.patch
@@ -27,7 +27,6 @@ Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: zlib-devel
 BuildRequires: libicu-devel
-BuildConflicts: %{_lib}xerces-c26-devel
 
 %description
 Xerces-C++ is a validating XML parser written in a portable subset of C++.
@@ -59,6 +58,7 @@ xerces-c library
 
 %files -n %libname
 %defattr(-,root,root,-)
+%doc LICENSE.txt
 %_libdir/libxerces-*.so.*
 
 #----------------------------------------------------------------------
@@ -67,11 +67,9 @@ xerces-c library
 Requires: %libname = %epoch:%version-%release
 Group: Development/C
 Summary:	Header files for Xerces-C++ validating XML parser
-Provides: xerces-c-devel
-Provides: libxerces-c-devel
-Obsoletes: %{_lib}xerces-c26-devel
-Obsoletes: xerces-c
-Obsoletes: %{_lib}xerces-c0-devel
+Provides:	xerces-c%major-devel = %epoch:%version-%release
+Conflicts:	%{mklibname xerces-c 0 -d}
+Conflicts:	%{mklibname xerces-c 3.0 -d}
 
 %description -n %libdev
 Header files you can use to develop XML applications with Xerces-C++.
@@ -89,27 +87,8 @@ manipulating, and validating XML documents.
 
 #----------------------------------------------------------------------
 
-%package doc
-Group: Books/Other
-Summary:	Documentation for Xerces-C++ validating XML parser
-Obsoletes: xerces-c-manual
-
-%description doc
-Documentation for Xerces-C++.
-
-Xerces-C++ is a validating XML parser written in a portable subset of C++.
-Xerces-C++ makes it easy to give your application the ability to read and
-write XML data. A shared library is provided for parsing, generating,
-manipulating, and validating XML documents.
-
-%files doc
-%defattr(-,root,root,-)
-%doc LICENSE.txt STATUS credits.txt Readme.html doc/
-
-#----------------------------------------------------------------------
-
 %prep
-%setup -q -n %{name}-src_%{tarversion}
+%setup -q -n xerces-c-src_%{tarversion}
 %if "%{_lib}" != "lib"
 %patch0 -p1 -b .orig
 %endif
@@ -119,7 +98,7 @@ manipulating, and validating XML documents.
 %patch4 -p0 -b .CVE-2009-1885
 
 %build
-export XERCESCROOT=%_builddir/%name-src_%{tarversion}
+export XERCESCROOT=%_builddir/xerces-c-src_%{tarversion}
 
 cd $XERCESCROOT/src/xercesc
 ./runConfigure \
@@ -146,12 +125,9 @@ make
 %install
 rm -rf %buildroot
 
-export XERCESCROOT=%_builddir/%name-src_%{tarversion}
+export XERCESCROOT=%_builddir/xerces-c-src_%{tarversion}
 cd $XERCESCROOT/src/xercesc
 %makeinstall_std
 
 %clean
 rm -rf %buildroot
-
-
-
