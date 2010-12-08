@@ -10,7 +10,7 @@
 
 Name: xerces-c%major
 Version: 2.8.0
-Release: %mkrel 4
+Release: %mkrel 5
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
