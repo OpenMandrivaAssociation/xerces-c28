@@ -1,0 +1,15 @@
+--- xerces-c-src_2_7_0/src/xercesc/dom/impl/Makefile.in.orig	2006-09-18 22:13:12.000000000 -0300
++++ xerces-c-src_2_7_0/src/xercesc/dom/impl/Makefile.in	2006-09-18 22:21:14.000000000 -0300
+@@ -41,9 +41,10 @@
+ 
+ include ../../Makefile.incl
+ 
+-DOM_IMPL_CPP_PUBHEADERS =
+ 
+-DOM_IMPL_CPP_PRIVHEADERS =  \
++DOM_IMPL_CPP_PRIVHEADERS =  
++
++DOM_IMPL_CPP_PUBHEADERS = \
+ 	DOMAttrImpl.hpp \
+ 	DOMAttrMapImpl.hpp \
+ 	DOMAttrNSImpl.hpp \
