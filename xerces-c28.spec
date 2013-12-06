@@ -6,7 +6,8 @@
 %define libdev %mklibname xerces-c %major -d 
 
 %define enable_debug 0
-%{?_enable_debug: %{expand: %%global enable_debug 1}}
+%define _enable_debug_packages %{nil}
+%define debug_package %{nil}
 
 Name: xerces-c%major
 Version: 2.8.0
