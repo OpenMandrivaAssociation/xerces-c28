@@ -13,7 +13,7 @@ Name: xerces-c%major
 Version: 2.8.0
 Release: 7
 Epoch: 1
-URL: http://xml.apache.org/xerces-c/
+URL: https://xml.apache.org/xerces-c/
 License: Apache
 Source0: xerces-c-src_%{tarversion}.tar.gz
 Patch0: xerces-c-lib64.patch
