@@ -25,6 +25,7 @@ Patch3: xercesc_regex.patch
 Patch4: xerces-c-2.8.x-CVE-2009-1885.diff
 Summary:	Xerces-C++ validating XML parser
 Group: System/Libraries
+BuildRequires:	make
 BuildRequires: zlib-devel
 BuildRequires: icu-devel
 
